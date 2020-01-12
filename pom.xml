@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>top.potens</groupId>
+    <packaging>pom</packaging>
+    <version>${revision}</version>
+
+
+    <artifactId>papio-framework</artifactId>
+    <name>papio-framework</name>
+    <description>基于Spring Boot二次封装的业务框架</description>
+
+    <properties>
+        <revision>0.0.1-SNAPSHOT</revision>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+
+    <modules>
+        <module>papio-examples</module>
+        <module>papio-core</module>
+        <module>papio-parent</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>http://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>potenstop</name>
+            <email>potenstop@163.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com:potenstop/papio-boot.git</connection>
+        <developerConnection>scm:git:git@github.com:potenstop/papio-boot.git</developerConnection>
+        <url>git@github.com:potenstop/papio-boot.git</url>
+    </scm>
+
+    <profiles>
+        <profile>
+            <!-- 本地开发环境 -->
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <!-- 设置默认激活这个配置 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+        </profile>
+        <profile>
+            <!--打包环境-->
+            <id>release</id>
+            <properties>
+                <profiles.active>release</profiles.active>
+            </properties>
+            <!--定义snapshots库和releases库的nexus地址-->
+            <distributionManagement>
+                <snapshotRepository>
+                    <!--oss需要对应到settings.xml下的service的id-->
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <!-- 测试环境 -->
+            <id>beta</id>
+            <properties>
+                <profiles.active>beta</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
