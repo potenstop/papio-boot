@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.UUID;
 
 /**
- * Created by wenshao on 2019/7/21.
+ * Created by yanshaowen on 2019/7/21.
  */
 public class StringUtil extends StringUtils {
     public static String getUuid() {

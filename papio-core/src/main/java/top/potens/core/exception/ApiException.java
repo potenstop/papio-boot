@@ -4,7 +4,7 @@ import top.potens.core.enums.CommonExceptionCodeEnums;
 import top.potens.core.response.ResultCodeInit;
 
 /**
- * Created by wenshao on 2019/6/16.
+ * Created by yanshaowen on 2019/6/16.
  */
 public class ApiException extends RuntimeException {
     private String code;

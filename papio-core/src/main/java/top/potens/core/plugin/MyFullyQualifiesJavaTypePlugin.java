@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.sql.Types;
 
 /**
- * Created by wenshao on 2019/6/16.
+ * Created by yanshaowen on 2019/6/16.
  */
 public class MyFullyQualifiesJavaTypePlugin extends JavaTypeResolverDefaultImpl {
     public MyFullyQualifiesJavaTypePlugin() {

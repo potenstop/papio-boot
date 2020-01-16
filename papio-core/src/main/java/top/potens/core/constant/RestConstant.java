@@ -1,7 +1,7 @@
 package top.potens.core.constant;
 
 /**
- * Created by wenshao on 2019/6/16.
+ * Created by yanshaowen on 2019/6/16.
  */
 public class RestConstant {
     public final static String BEANS_EXCEPTION = "510";

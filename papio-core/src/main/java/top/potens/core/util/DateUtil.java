@@ -1,13 +1,13 @@
 package top.potens.core.util;
-import io.lettuce.core.output.KeyStreamingChannel;
 import top.potens.core.model.DateScope;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.function.Consumer;
 
 /**
- * Created by wenshao on 2019/6/15.
+ * Created by yanshaowen on 2019/6/15.
  */
 public class DateUtil {
     /**
@@ -215,14 +215,14 @@ public class DateUtil {
         return getLocalDate(date, FORMATTER_DATE);
     }
 
-    public static void setScopeDate(String scopeDate, KeyStreamingChannel<Date> start, KeyStreamingChannel<Date> end) {
+    public static void setScopeDate(String scopeDate, Consumer<Date> start, Consumer<Date> end) {
         if (StringUtil.isNotBlank(scopeDate)) {
             String[] split = scopeDate.split(",");
             if (split.length == 1) {
-                start.onKey(DateUtil.getLocalDate(split[0]));
+                start.accept(DateUtil.getLocalDate(split[0]));
             } else if (split.length == 2) {
-                start.onKey(DateUtil.getLocalDate(split[0]));
-                end.onKey(DateUtil.getLocalDate(split[1]));
+                start.accept(DateUtil.getLocalDate(split[0]));
+                end.accept(DateUtil.getLocalDate(split[1]));
             }
         }
     }

@@ -11,7 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import top.potens.core.constant.RestConstant;
 import top.potens.core.constant.TokenConstant;
-import top.potens.core.context.HttpContext;
+import top.potens.log.HttpContext;
 import top.potens.core.exception.ApiException;
 import top.potens.core.model.TokenUser;
 

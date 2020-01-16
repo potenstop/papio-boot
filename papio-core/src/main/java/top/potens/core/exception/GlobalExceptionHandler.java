@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.potens.core.constant.RestConstant;
-import top.potens.core.log.AppLogger;
+import top.potens.log.AppLogger;
 import top.potens.core.model.ApiResult;
 
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by wenshao on 2019/6/16.
+ * Created by yanshaowen on 2019/6/16.
  */
 @ControllerAdvice
 @ResponseBody

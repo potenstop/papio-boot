@@ -3,7 +3,7 @@ package top.potens.core.model;
 import top.potens.core.serialization.JSON;
 
 /**
- * Created by wenshao on 2019/6/16.
+ * Created by yanshaowen on 2019/6/16.
  */
 public class ApiResult<T> {
     private String code;

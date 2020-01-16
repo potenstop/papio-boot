@@ -4,7 +4,7 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 import top.potens.core.constant.TokenConstant;
-import top.potens.core.context.HttpContext;
+import top.potens.log.HttpContext;
 import top.potens.core.model.TokenUser;
 
 import javax.servlet.http.Cookie;

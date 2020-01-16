@@ -3,10 +3,10 @@ package top.potens.core.serialization;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import top.potens.core.exception.SerializationException;
-import top.potens.core.log.AppLogger;
+import top.potens.log.AppLogger;
 
 /**
- * Created by wenshao on 2019/6/15.
+ * Created by yanshaowen on 2019/6/15.
  */
 public class JSON {
     public static String toJSONString(Object value) {

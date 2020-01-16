@@ -3,7 +3,7 @@ package top.potens.core.response;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.helpers.MessageFormatter;
 import top.potens.core.annotation.ResultMessage;
-import top.potens.core.log.AppLogger;
+import top.potens.log.AppLogger;
 import top.potens.core.plugin.PackageClassesLoader;
 
 import java.lang.reflect.Field;

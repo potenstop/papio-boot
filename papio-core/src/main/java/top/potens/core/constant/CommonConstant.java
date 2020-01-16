@@ -1,7 +1,7 @@
 package top.potens.core.constant;
 
 /**
- * Created by wenshao on 2019/6/15.
+ * Created by yanshaowen on 2019/6/15.
  */
 public class CommonConstant {
     /**

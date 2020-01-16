@@ -11,7 +11,7 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import top.potens.core.log.AppLogger;
+import top.potens.log.AppLogger;
 import top.potens.core.util.DateUtil;
 
 import java.util.Date;
