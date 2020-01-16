@@ -42,9 +42,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git@github.com:potenstop/papio-boot.git</connection>
-        <developerConnection>scm:git:git@github.com:potenstop/papio-boot.git</developerConnection>
-        <url>git@github.com:potenstop/papio-boot.git</url>
+        <connection>scm:git:git@github.com:potenstop/papio-framework.git</connection>
+        <developerConnection>scm:git:git@github.com:potenstop/papio-framework.git</developerConnection>
+        <url>git@github.com:potenstop/papio-framework.git</url>
     </scm>
     <!--统一继承spring-boot-->
     <parent>
