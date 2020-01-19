@@ -24,7 +24,7 @@ public class MybatisGeneratorTest {
                 .setMapTargetProject("src/test/resources/mappings")
                 .setClientTargetPackage("top.potens.generator.dao.db.auto")
                 .setClientTargetProject("src/test/java")
-                .addTable("aaa", "id")
+                .addTable("aaa", "id", "Aa")
                 .run();
     }
 }

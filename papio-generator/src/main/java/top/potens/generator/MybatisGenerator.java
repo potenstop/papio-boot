@@ -129,10 +129,11 @@ public class MybatisGenerator {
         return clientTargetProject;
     }
 
-    public MybatisGenerator addTable (String tableName, String primaryKeyName) {
+    public MybatisGenerator addTable (String tableName, String primaryKeyName, String domainObjectName) {
         Map<String, String> map = new HashMap<>();
         map.put("tableName", tableName);
         map.put("primaryKeyName", primaryKeyName);
+        map.put("domainObjectName", domainObjectName);
         tableList.add(map);
         return this;
     }
@@ -201,6 +202,7 @@ public class MybatisGenerator {
         for (Map<String, String> tableName : this.tableList) {
             TableConfiguration tableConfiguration = new TableConfiguration(context);
             tableConfiguration.setTableName(tableName.get("tableName"));
+            tableConfiguration.setDomainObjectName(tableName.get("domainObjectName"));
             tableConfiguration.setDelimitIdentifiers(true);
             GeneratedKey generatedKey = new GeneratedKey(tableName.get("primaryKeyName"), "Mysql", true, null);
             tableConfiguration.setGeneratedKey(generatedKey);
