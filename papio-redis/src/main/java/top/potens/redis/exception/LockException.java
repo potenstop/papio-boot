@@ -1,4 +1,4 @@
-package top.potens.core.exception;
+package top.potens.redis.exception;
 
 /**
  * 功能描述: 分布式锁异常

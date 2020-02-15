@@ -1,4 +1,4 @@
-package top.potens.core.enums;
+package top.potens.redis.enums;
 
 /**
  * 功能描述: 锁的模式

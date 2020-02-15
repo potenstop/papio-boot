@@ -1,6 +1,6 @@
-package top.potens.core.annotation;
+package top.potens.redis.annotation;
 
-import top.potens.core.enums.LockModel;
+import top.potens.redis.enums.LockModel;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;

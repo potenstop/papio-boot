@@ -1,5 +1,6 @@
-package top.potens.core.config;
+package top.potens.redis.config;
 
+import jodd.util.StringUtil;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -29,6 +30,9 @@ public class RedissonConfiguration {
     @Bean
     public RedissonClient getRedisson() {
 
+        if (password == null || password.length() == 0) {
+            password = null;
+        }
         Config config = new Config();
         config.useSingleServer()
                 .setAddress(url)

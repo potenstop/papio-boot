@@ -8,7 +8,7 @@ package top.potens.core.service;
  * @projectName web-api
  * @date 2019/12/10 17:47
  */
-public interface TableCommonService<Model> {
+public interface TableCommonService<Model, PrimaryKey> {
     /**
     *
     * 方法功能描述: 按表的主键查询一条记录 不返回异常 不存在返回null
@@ -19,7 +19,7 @@ public interface TableCommonService<Model> {
     * @return
     * @throws
     */
-    Model byPrimaryKey(Integer id);
+    Model byPrimaryKey(PrimaryKey id);
 
     /**
      *
@@ -31,7 +31,7 @@ public interface TableCommonService<Model> {
      * @return
      * @throws
      */
-    Model byPrimaryKeyException(Integer id);
+    Model byPrimaryKeyException(PrimaryKey id);
 
     /**
      *
@@ -43,7 +43,7 @@ public interface TableCommonService<Model> {
      * @return
      * @throws
      */
-    Model bySecondPrimaryKey(Integer id);
+    Model bySecondPrimaryKey(PrimaryKey id);
 
     /**
      *
@@ -55,5 +55,5 @@ public interface TableCommonService<Model> {
      * @return
      * @throws
      */
-    Model bySecondPrimaryKeyException(Integer id);
+    Model bySecondPrimaryKeyException(PrimaryKey id);
 }

@@ -53,7 +53,7 @@ public class UserAuthorizationInterceptor implements HandlerInterceptor {
             if ("dev".equals(env) && token.indexOf(",") != -1) {
                 String[] split = token.split(",");
                 TokenUser tokenUser = new TokenUser();
-                tokenUser.setUserId(Integer.valueOf(split[0]));
+                tokenUser.setUserId(Long.valueOf(split[0]));
                 tokenUser.setUsername(split[1]);
                 notLogin = false;
                 request.getSession().setAttribute(TokenConstant.REQUEST_CURRENT_KEY, tokenUser);

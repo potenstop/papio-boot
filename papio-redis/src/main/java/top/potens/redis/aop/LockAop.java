@@ -1,6 +1,5 @@
-package top.potens.core.aop;
+package top.potens.redis.aop;
 
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,9 +22,9 @@ import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
-import top.potens.core.annotation.Lock;
-import top.potens.core.enums.LockModel;
-import top.potens.core.exception.LockException;
+import top.potens.redis.annotation.Lock;
+import top.potens.redis.enums.LockModel;
+import top.potens.redis.exception.LockException;
 
 import java.util.concurrent.TimeUnit;
 
@@ -81,7 +80,7 @@ public class LockAop {
         } catch (Exception e) {
             throw new LockException("解析失败");
         }
-        if (StringUtils.isBlank(value)) {
+        if (value == null || value.length() == 0) {
             throw new LockException("lock value is blank");
         }
         logger.info("spel表达式key={},value={}", key, value);

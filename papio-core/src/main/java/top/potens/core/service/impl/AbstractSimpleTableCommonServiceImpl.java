@@ -12,7 +12,7 @@ import top.potens.core.service.TableCommonService;
  * @projectName web-api
  * @date 2019/12/10 19:55
  */
-public abstract class AbstractSimpleTableCommonServiceImpl<Model> implements TableCommonService<Model> {
+public abstract class AbstractSimpleTableCommonServiceImpl<Model, PrimaryKey> implements TableCommonService<Model, PrimaryKey> {
     /**
     *
     * 方法功能描述: 根据id查询
@@ -23,7 +23,7 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model> implements Tab
     * @return
     * @throws
     */
-    protected abstract Model mapperByPrimaryKey(Integer id);
+    protected abstract Model mapperByPrimaryKey(PrimaryKey id);
     /**
     *
     * 方法功能描述: 根据id查询
@@ -34,7 +34,7 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model> implements Tab
     * @return
     * @throws
     */
-    protected abstract Model mapperBySecondPrimaryKey(Integer id);
+    protected abstract Model mapperBySecondPrimaryKey(PrimaryKey id);
 
     /**
     *
@@ -49,7 +49,7 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model> implements Tab
     protected abstract Boolean isDelete(Model model);
 
     @Override
-    public Model byPrimaryKey(Integer id) {
+    public Model byPrimaryKey(PrimaryKey id) {
         if (id == null) {
             return null;
         }
@@ -62,7 +62,7 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model> implements Tab
     }
 
     @Override
-    public Model byPrimaryKeyException(Integer id) {
+    public Model byPrimaryKeyException(PrimaryKey id) {
         if (id == null) {
             return null;
         }
@@ -78,7 +78,7 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model> implements Tab
     }
 
     @Override
-    public Model bySecondPrimaryKey(Integer id) {
+    public Model bySecondPrimaryKey(PrimaryKey id) {
         if (id == null) {
             return null;
         }
@@ -91,7 +91,7 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model> implements Tab
     }
 
     @Override
-    public Model bySecondPrimaryKeyException(Integer id){
+    public Model bySecondPrimaryKeyException(PrimaryKey id){
         if (id == null) {
             return null;
         }

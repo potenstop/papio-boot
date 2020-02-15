@@ -13,14 +13,14 @@ import java.io.Serializable;
 public class TokenUser implements Serializable {
     private static final long serialVersionUID = -2095916884810199532L;
 
-    private Integer userId;
+    private Long userId;
     private String username;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

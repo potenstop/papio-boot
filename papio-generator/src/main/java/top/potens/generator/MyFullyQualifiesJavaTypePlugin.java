@@ -24,6 +24,6 @@ public class MyFullyQualifiesJavaTypePlugin extends JavaTypeResolverDefaultImpl 
         super.typeMap.put(Types.DOUBLE, new JdbcTypeInformation("DOUBLE",new FullyQualifiedJavaType(BigDecimal.class.getName())));
         super.typeMap.put(Types.FLOAT, new JdbcTypeInformation("FLOAT",new FullyQualifiedJavaType(BigDecimal.class.getName())));
         super.typeMap.put(Types.DECIMAL, new JdbcTypeInformation("DECIMAL",new FullyQualifiedJavaType(BigDecimal.class.getName())));
-        super.typeMap.put(Types.BIGINT, new JdbcTypeInformation("BIGINT",new FullyQualifiedJavaType(BigDecimal.class.getName())));
+        super.typeMap.put(Types.BIGINT, new JdbcTypeInformation("BIGINT",new FullyQualifiedJavaType(Long.class.getName())));
     }
 }

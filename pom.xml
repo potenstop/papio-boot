@@ -13,6 +13,7 @@
         <module>papio-core</module>
         <module>papio-log</module>
         <module>papio-generator</module>
+        <module>papio-redis</module>
     </modules>
 
     <artifactId>papio-framework</artifactId>
@@ -69,6 +70,11 @@
                 <artifactId>papio-log</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>top.potens</groupId>
+                <artifactId>papio-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <!--依赖generator模块-->
             <dependency>
                 <groupId>top.potens</groupId>
@@ -98,6 +104,12 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+                <version>${cloud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
                 <version>${cloud.version}</version>
             </dependency>
 

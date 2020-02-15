@@ -1,6 +1,6 @@
 package top.potens.core.exception;
 
-import jodd.util.StringUtil;
+
 import org.springframework.beans.BeansException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.potens.core.constant.RestConstant;
+import top.potens.core.util.StringUtil;
 import top.potens.log.AppLogger;
 import top.potens.core.model.ApiResult;
 
