@@ -28,7 +28,7 @@ import java.util.List;
 public class Swagger2Configuration {
     private String appId = Foundation.app().getAppId();
 
-    @Value("${server.port}")
+    @Value("${server.port:8080}")
     private Integer port;
 
     //不支持IE浏览器
@@ -42,9 +42,15 @@ public class Swagger2Configuration {
         tokenParameterBuilder.name("token").parameterType("header")
                 .defaultValue("token").description("token").modelRef(new ModelRef("string"))
                 .required(false).build();
+        ParameterBuilder tokenBase64ParameterBuilder = new ParameterBuilder();
+
+        tokenBase64ParameterBuilder.name("token-base64").parameterType("header")
+                .defaultValue("token-base64").description("token-base64").modelRef(new ModelRef("string"))
+                .required(false).build();
         List<Parameter> aParameters = new ArrayList<Parameter>();
         aParameters.add(plateformParameterBuilder.build());
         aParameters.add(tokenParameterBuilder.build());
+        aParameters.add(tokenBase64ParameterBuilder.build());
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(buildApiInf()).globalOperationParameters(aParameters)

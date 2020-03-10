@@ -1,5 +1,6 @@
 package top.potens.core.aop;
 
+import com.google.protobuf.Api;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -9,6 +10,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import top.potens.core.enums.CommonExceptionCodeEnums;
 import top.potens.log.HttpContext;
 import top.potens.core.exception.ApiException;
 import top.potens.log.AppLogger;
@@ -36,8 +38,10 @@ public class ControllerVisitAspect {
 
     @Around("pointcut()")
     public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
-
         HttpServletRequest request = HttpContext.getRequest();
+        if (request == null) {
+            throw new ApiException(CommonExceptionCodeEnums.REQUEST_IS_NULL);
+        }
 
         String uri = request.getRequestURI().replace(request.getContextPath(), "");
         AppLogger.info("request.getContentType() {}" , request.getContentType());
@@ -58,6 +62,9 @@ public class ControllerVisitAspect {
     )
     public void doAfterEx(JoinPoint joinPoint, Throwable ex) {
         HttpServletRequest request = HttpContext.getRequest();
+        if (request == null) {
+            throw new ApiException(CommonExceptionCodeEnums.REQUEST_IS_NULL);
+        }
         String uri = request.getRequestURI().replace(request.getContextPath(), "");
         if (ex instanceof ApiException) {
             AppLogger.warn("error uri:[{}] methodName:[{}]", ex, uri, joinPoint.getSignature().getName());

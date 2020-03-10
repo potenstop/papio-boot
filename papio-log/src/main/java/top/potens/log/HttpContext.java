@@ -16,20 +16,23 @@ public class HttpContext {
     public static HttpServletRequest getRequest() {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
-            throw new RuntimeException("requestAttributes is null");
+            return null;
         }
         return requestAttributes.getRequest();
     }
     public static HttpServletResponse getResponse() {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
-            throw new RuntimeException("requestAttributes is null");
+            return null;
         }
         return requestAttributes.getResponse();
     }
     public static String getClientIp() {
         try {
             HttpServletRequest request = HttpContext.getRequest();
+            if (request == null) {
+                return "";
+            }
             String ip = request.getHeader("X-Forwarded-For");
             if (ip != null && ip.length() > 0 && !"unKnown".equalsIgnoreCase(ip)) {
                 //多次反向代理后会有多个ip值，第一个ip才是真实ip

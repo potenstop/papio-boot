@@ -11,6 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import top.potens.core.constant.RestConstant;
 import top.potens.core.constant.TokenConstant;
+import top.potens.core.enums.CommonExceptionCodeEnums;
 import top.potens.log.HttpContext;
 import top.potens.core.exception.ApiException;
 import top.potens.core.model.TokenUser;
@@ -38,6 +39,9 @@ public class ControllerTokenAspect {
     @Around("pointcut()")
     public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = HttpContext.getRequest();
+        if (request == null) {
+            throw new ApiException(CommonExceptionCodeEnums.REQUEST_IS_NULL);
+        }
         //1.获取到所有的参数值的数组
         Object[] args = joinPoint.getArgs();
         Signature signature = joinPoint.getSignature();

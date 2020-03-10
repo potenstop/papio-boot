@@ -1,8 +1,6 @@
 package top.potens.core.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RBucket;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -14,11 +12,14 @@ import top.potens.core.annotation.UserAuthToken;
 import top.potens.core.constant.TokenConstant;
 import top.potens.core.model.ApiResult;
 import top.potens.core.model.TokenUser;
+import top.potens.core.serialization.JSON;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * 功能描述:
@@ -32,11 +33,6 @@ import java.lang.reflect.Method;
 @Component
 public class UserAuthorizationInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private RedissonClient redisson;
-    @Value("${env:pro}")
-    private String env;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -48,24 +44,15 @@ public class UserAuthorizationInterceptor implements HandlerInterceptor {
 
         // 获取header里的token 转为TokenUser
         boolean notLogin = true;
-        String token = request.getHeader(TokenConstant.TOKEN_NAME);
-        if (token != null && token.length() != 0) {
-            if ("dev".equals(env) && token.indexOf(",") != -1) {
-                String[] split = token.split(",");
-                TokenUser tokenUser = new TokenUser();
-                tokenUser.setUserId(Long.valueOf(split[0]));
-                tokenUser.setUsername(split[1]);
+        String tokenBase64 = request.getHeader(TokenConstant.TOKEN_BASE64_NAME);
+        if (tokenBase64 != null && tokenBase64.length() != 0) {
+            final Base64.Decoder decoder = Base64.getDecoder();
+            String tokenUserStr = new String(decoder.decode(tokenBase64), StandardCharsets.UTF_8);
+            TokenUser tokenUser = JSON.toObjectNotEx(tokenUserStr, TokenUser.class);
+            if (tokenUser != null) {
                 notLogin = false;
                 request.getSession().setAttribute(TokenConstant.REQUEST_CURRENT_KEY, tokenUser);
-            } else {
-                RBucket<TokenUser> rBucket = redisson.getBucket(TokenConstant.TOKEN_REDISSION_NAME + token);
-                TokenUser tokenUser = rBucket.get();
-                if (tokenUser != null) {
-                    notLogin = false;
-                    request.getSession().setAttribute(TokenConstant.REQUEST_CURRENT_KEY, tokenUser);
-                }
             }
-
         }
 
         // 如果打上了AuthToken注解则需要验证token

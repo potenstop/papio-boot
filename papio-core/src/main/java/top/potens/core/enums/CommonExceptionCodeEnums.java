@@ -13,6 +13,8 @@ public enum CommonExceptionCodeEnums {
     RECODE_NOT_FOUND("600", "记录未找到"),
     // 记录已被删除
     RECODE_IS_DELETE("601", "记录已被删除"),
+    // request 为null
+    REQUEST_IS_NULL("406", "请求头信息获取错误"),
     ;
 
 
