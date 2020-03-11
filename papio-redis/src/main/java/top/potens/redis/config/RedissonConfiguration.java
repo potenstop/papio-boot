@@ -18,13 +18,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RedissonConfiguration {
-    @Value("${fx.config.redisson.url}")
+    @Value("${fx.redis.redisson.url}")
     private String url;
 
-    @Value("${fx.config.redisson.password}")
+    @Value("${fx.redis.redisson.password}")
     private String password;
 
-    @Value("${fx.config.redisson.database}")
+    @Value("${fx.redis.redisson.database}")
     private Integer database;
 
     @Bean

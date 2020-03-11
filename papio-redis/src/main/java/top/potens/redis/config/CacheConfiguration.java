@@ -32,16 +32,16 @@ import java.util.Map;
 @Configuration
 @EnableCaching
 public class CacheConfiguration {
-    @Value("${fx.config.cache.url}")
+    @Value("${fx.redis.cache.url}")
     private String masterUrl;
 
-    @Value("${fx.config.cache.port}")
+    @Value("${fx.redis.cache.port}")
     private Integer port;
 
-    @Value("${fx.config.cache.database}")
+    @Value("${fx.redis.cache.database}")
     private Integer database;
 
-    @Value("${fx.config.cache.password}")
+    @Value("${fx.redis.cache.password}")
     private String password;
 
     @Bean("redisCacheFactory")
