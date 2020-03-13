@@ -3,6 +3,7 @@ package top.potens.fegin.client;
 import feign.Client;
 import feign.Request;
 import feign.Response;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,11 +27,14 @@ import static java.lang.String.format;
  * @date 2020/3/13 13:50
  */
 public class GatewayFeignClient implements Client {
-
+    @Value("${fx.domain.end-api-gateway:http://192.168.1.60:10001/}")
+    private String endApiGatewayHost;
     @Override
     public Response execute(Request request, Request.Options options) throws IOException {
-        HttpURLConnection connection = convertAndSend(request, options);
-        return convertResponse(connection).toBuilder().request(request).build();
+        String newUrl = request.url().replaceFirst("http://", endApiGatewayHost);
+        Request newRequest = Request.create(request.httpMethod(), newUrl, request.headers(), request.requestBody());
+        HttpURLConnection connection = convertAndSend(newRequest, options);
+        return convertResponse(connection, request);
     }
     HttpURLConnection convertAndSend(Request request, Request.Options options) throws IOException {
         final HttpURLConnection
@@ -97,7 +101,7 @@ public class GatewayFeignClient implements Client {
         return connection;
     }
 
-    Response convertResponse(HttpURLConnection connection) throws IOException {
+    Response convertResponse(HttpURLConnection connection, Request request) throws IOException {
         int status = connection.getResponseCode();
         String reason = connection.getResponseMessage();
 
@@ -129,6 +133,7 @@ public class GatewayFeignClient implements Client {
                 .reason(reason)
                 .headers(headers)
                 .body(stream, length)
+                .request(request)
                 .build();
     }
 }

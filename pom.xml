@@ -22,7 +22,7 @@
     <description>基于Spring Boot二次封装的业务框架</description>
 
     <properties>
-        <revision>1.0.1</revision>
+        <revision>1.0.2</revision>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -74,6 +74,11 @@
             <dependency>
                 <groupId>top.potens</groupId>
                 <artifactId>papio-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.potens</groupId>
+                <artifactId>papio-feign</artifactId>
                 <version>${revision}</version>
             </dependency>
             <!--依赖generator模块-->
