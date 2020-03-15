@@ -40,12 +40,12 @@ public class Swagger2Configuration {
                 .required(false).build();
         ParameterBuilder tokenParameterBuilder = new ParameterBuilder();
         tokenParameterBuilder.name("token").parameterType("header")
-                .defaultValue("token").description("token").modelRef(new ModelRef("string"))
+                .defaultValue("").description("token").modelRef(new ModelRef("string"))
                 .required(false).build();
         ParameterBuilder tokenBase64ParameterBuilder = new ParameterBuilder();
 
         tokenBase64ParameterBuilder.name("token-base64").parameterType("header")
-                .defaultValue("token-base64").description("token-base64").modelRef(new ModelRef("string"))
+                .defaultValue("").description("token-base64").modelRef(new ModelRef("string"))
                 .required(false).build();
         List<Parameter> aParameters = new ArrayList<Parameter>();
         aParameters.add(plateformParameterBuilder.build());
