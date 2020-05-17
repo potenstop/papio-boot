@@ -42,6 +42,11 @@ public class CacheConfiguration {
     @Value("${fx.redis.cache.password}")
     private String password;
 
+    @Value("${spring.application.name}")
+    private String springApplicationName;
+
+
+
     @Bean("redisCacheFactory")
     @Primary
     public LettuceConnectionFactory redisConnectionFactory() {
@@ -92,9 +97,20 @@ public class CacheConfiguration {
     public KeyGenerator simpleKeyGenerator() {
         return (o, method, objects) -> {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(o.getClass().getSimpleName());
-            stringBuilder.append(".");
-            stringBuilder.append(method.getName());
+            stringBuilder.append("[");
+            for (Object obj : objects) {
+                stringBuilder.append(obj.toString());
+            }
+            stringBuilder.append("]");
+
+            return stringBuilder.toString();
+        };
+    }
+    @Bean
+    public KeyGenerator simpleKeyPrefixGenerator() {
+        return (o, method, objects) -> {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(this.springApplicationName);
             stringBuilder.append("[");
             for (Object obj : objects) {
                 stringBuilder.append(obj.toString());

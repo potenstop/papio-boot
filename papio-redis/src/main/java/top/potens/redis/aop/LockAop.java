@@ -47,6 +47,9 @@ public class LockAop {
     @Value("${fx.config.redisson.default.watch.timeout:120}")
     private Integer watchTimeout;
 
+    @Value("${spring.application.name}")
+    private String springApplicationName;
+
     @Autowired
     private RedissonClient redisson;
 
@@ -60,9 +63,13 @@ public class LockAop {
      * @param key            定义的key值 以#开头 例如:#user
      * @param parameterNames 形参
      * @param values         形参值
+     * @param projectPrefix  项目前缀
      * @return
      */
-    private String getValueBySpel(String key, String[] parameterNames, Object[] values) {
+    private String getValueBySpel(String key, String[] parameterNames, Object[] values, boolean projectPrefix) {
+        if (projectPrefix) {
+            key = springApplicationName + ":"+ key;
+        }
         if (!key.contains("#")) {
             return key;
         }
@@ -118,29 +125,30 @@ public class LockAop {
         logger.info("model:[{}] attemptTimeout:[{}] lockWatchTimeout:[{}] timeUnit:[{}]", lockModel.name(), attemptTimeout, lockWatchTimeout, lock.timeUnit());
         boolean res = false;
         RLock rLock = null;
+
         if (LockModel.FAIR.equals(lockModel)) {
-            rLock = redisson.getFairLock(getValueBySpel(keys[0], parameterNames, args));
+            rLock = redisson.getFairLock(getValueBySpel(keys[0], parameterNames, args, lock.projectPrefix()));
         } else if (LockModel.REDLOCK.equals(lockModel)) {
             RLock[] locks = new RLock[keys.length];
             int index = 0;
             for (String key : keys) {
-                locks[index++] = redisson.getLock(getValueBySpel(key, parameterNames, args));
+                locks[index++] = redisson.getLock(getValueBySpel(key, parameterNames, args, lock.projectPrefix()));
             }
             rLock = new RedissonRedLock(locks);
         } else if (LockModel.MULTIPLE.equals(lockModel)) {
             RLock[] locks = new RLock[keys.length];
             int index = 0;
             for (String key : keys) {
-                locks[index++] = redisson.getLock(getValueBySpel(key, parameterNames, args));
+                locks[index++] = redisson.getLock(getValueBySpel(key, parameterNames, args, lock.projectPrefix()));
             }
             rLock = new RedissonMultiLock(locks);
         } else if (LockModel.REENTRANT.equals(lockModel)) {
-            rLock = redisson.getLock(getValueBySpel(keys[0], parameterNames, args));
+            rLock = redisson.getLock(getValueBySpel(keys[0], parameterNames, args, lock.projectPrefix()));
         } else if (LockModel.READ.equals(lockModel)) {
-            RReadWriteLock rReadWriteLock = redisson.getReadWriteLock(getValueBySpel(keys[0], parameterNames, args));
+            RReadWriteLock rReadWriteLock = redisson.getReadWriteLock(getValueBySpel(keys[0], parameterNames, args, lock.projectPrefix()));
             rLock = rReadWriteLock.readLock();
         } else if (LockModel.WRITE.equals(lockModel)) {
-            RReadWriteLock rReadWriteLock = redisson.getReadWriteLock(getValueBySpel(keys[0], parameterNames, args));
+            RReadWriteLock rReadWriteLock = redisson.getReadWriteLock(getValueBySpel(keys[0], parameterNames, args, lock.projectPrefix()));
             rLock = rReadWriteLock.writeLock();
         }
         //执行aop

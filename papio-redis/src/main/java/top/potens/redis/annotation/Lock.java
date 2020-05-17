@@ -42,4 +42,9 @@ public @interface Lock {
      * 单位
      */
     TimeUnit timeUnit() default TimeUnit.SECONDS;
+
+    /**
+     * 是否带项目名称的前缀
+     */
+    boolean projectPrefix() default true;
 }
