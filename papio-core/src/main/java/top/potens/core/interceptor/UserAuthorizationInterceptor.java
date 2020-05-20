@@ -48,7 +48,7 @@ public class UserAuthorizationInterceptor implements HandlerInterceptor {
         if (tokenBase64 != null && tokenBase64.length() != 0) {
             final Base64.Decoder decoder = Base64.getDecoder();
             String tokenUserStr = new String(decoder.decode(tokenBase64), StandardCharsets.UTF_8);
-            TokenUser tokenUser = JSON.toObjectNotEx(tokenUserStr, TokenUser.class);
+            TokenUser tokenUser = JSON.toBeanNotEx(tokenUserStr, TokenUser.class);
             if (tokenUser != null) {
                 notLogin = false;
                 request.getSession().setAttribute(TokenConstant.REQUEST_CURRENT_KEY, tokenUser);

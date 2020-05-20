@@ -6,12 +6,14 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import top.potens.core.exception.SerializationException;
 import top.potens.log.AppLogger;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by yanshaowen on 2019/6/15.
@@ -62,6 +64,7 @@ public class JSON {
         }
     }
 
+    @Deprecated
     public static <T> T toObjectNotEx(String str, Class<T> valueType) {
         if (str == null || str.length() == 0 || valueType == null) {
             AppLogger.warn("toObjectNotEx warn params is null str:[{}] valueType:[{}]", str, valueType);
@@ -69,6 +72,57 @@ public class JSON {
         }
         try {
             return objectMapper.readValue(str, valueType);
+        } catch (IOException e) {
+            AppLogger.error("toObjectNotEx error ", e);
+            return null;
+        }
+    }
+
+    public static <T> T toBean(String str, Class<T> valueType) {
+        if (str == null || str.length() == 0 || valueType == null) {
+            AppLogger.warn("toBean warn params is null str:[{}] valueType:[{}]", str, valueType);
+            return null;
+        }
+        try {
+            return objectMapper.readValue(str, valueType);
+        } catch (IOException e) {
+            throw new SerializationException(e.getMessage());
+        }
+    }
+
+    public static <T> T toBeanNotEx(String str, Class<T> valueType) {
+        if (str == null || str.length() == 0 || valueType == null) {
+            AppLogger.warn("toBeanNotEx warn params is null str:[{}] valueType:[{}]", str, valueType);
+            return null;
+        }
+        try {
+            return objectMapper.readValue(str, valueType);
+        } catch (IOException e) {
+            AppLogger.error("toBeanNotEx error ", e);
+            return null;
+        }
+    }
+
+    public static <T> List<T> toBeanList(String str, Class<T> valueType) {
+        if (str == null || str.length() == 0 || valueType == null) {
+            AppLogger.warn("toBeanList warn params is null str:[{}] valueType:[{}]", str, valueType);
+            return null;
+        }
+        try {
+            JavaType javaType = objectMapper.getTypeFactory().constructCollectionType(List.class, valueType);
+            return objectMapper.readValue(str, javaType);
+        } catch (IOException e) {
+            throw new SerializationException(e.getMessage());
+        }
+    }
+    public static <T> List<T> toBeanListNotEx(String str, Class<T> valueType) {
+        if (str == null || str.length() == 0 || valueType == null) {
+            AppLogger.warn("toBeanListNotEx warn params is null str:[{}] valueType:[{}]", str, valueType);
+            return null;
+        }
+        try {
+            JavaType javaType = objectMapper.getTypeFactory().constructCollectionType(List.class, valueType);
+            return objectMapper.readValue(str, javaType);
         } catch (IOException e) {
             AppLogger.error("toObjectNotEx error ", e);
             return null;

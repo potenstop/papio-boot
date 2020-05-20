@@ -19,7 +19,7 @@ public class DateUtil {
      */
     public static final DateTimeFormatter FORMATTER_DATETIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     /**
-     * yyyy-MM-dd HH:mm:ss.SSS
+     * yyyy-MM-dd
      */
     public static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

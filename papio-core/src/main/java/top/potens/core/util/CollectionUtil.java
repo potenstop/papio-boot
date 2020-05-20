@@ -1,6 +1,7 @@
 package top.potens.core.util;
 
 import com.google.common.base.Function;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Comparator;
 import java.util.HashMap;
