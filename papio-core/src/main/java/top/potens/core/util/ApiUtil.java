@@ -13,12 +13,19 @@ import top.potens.core.model.ApiResult;
  */
 public class ApiUtil {
     public static <T> T getData(ApiResult<T> result) {
-        if (result != null) {
-            if ("0".equals(result.getCode())) {
-                return result.getData();
-            }
+        if (result == null) {
+            throw new ApiException("400", "返回值为空");
+        }
+        if (!"0".equals(result.getCode())) {
             throw new ApiException(result.getCode(), result.getMessage());
         }
-        throw new ApiException("400", "返回值为空");
+        return result.getData();
+    }
+    public static <T> T getDataNotNull(ApiResult<T> result) {
+        T data = getData(result);
+        if (data == null) {
+            throw new ApiException("401", "data为null");
+        }
+        return data;
     }
 }
