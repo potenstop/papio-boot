@@ -42,10 +42,6 @@ public class CacheConfiguration {
     @Value("${fx.redis.cache.password}")
     private String password;
 
-    @Value("${spring.application.name}")
-    private String springApplicationName;
-
-
 
     @Bean("redisCacheFactory")
     @Primary
@@ -108,20 +104,10 @@ public class CacheConfiguration {
     }
     @Bean
     public KeyGenerator simpleKeyPrefixGenerator() {
-        return (o, method, objects) -> {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(this.springApplicationName);
-            stringBuilder.append("[");
-            for (Object obj : objects) {
-                stringBuilder.append(obj.toString());
-            }
-            stringBuilder.append("]");
-
-            return stringBuilder.toString();
-        };
+        return simpleKeyGenerator();
     }
 
-    public static RedisCacheConfiguration getRedisCacheConfigurationWithTtl(Integer seconds) {
+    public static RedisCacheConfiguration getRedisCacheConfigurationWithTtl(String appName, Integer seconds) {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -129,6 +115,8 @@ public class CacheConfiguration {
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+
+        redisCacheConfiguration = redisCacheConfiguration.computePrefixWith(name -> appName + ":" + name);
         redisCacheConfiguration = redisCacheConfiguration.serializeValuesWith(
                 RedisSerializationContext
                         .SerializationPair
