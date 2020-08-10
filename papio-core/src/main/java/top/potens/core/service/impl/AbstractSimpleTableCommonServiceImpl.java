@@ -2,7 +2,14 @@ package top.potens.core.service.impl;
 
 import top.potens.core.enums.CommonExceptionCodeEnums;
 import top.potens.core.exception.ApiException;
+import top.potens.core.model.TokenUser;
+import top.potens.core.serialization.JSON;
 import top.potens.core.service.TableCommonService;
+import top.potens.core.util.ReflectionsUtil;
+import top.potens.log.AppLogger;
+
+import java.lang.reflect.Field;
+import java.util.Date;
 
 /**
  * 功能描述:
@@ -104,5 +111,18 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model, PrimaryKey> im
             throw new ApiException(CommonExceptionCodeEnums.RECODE_IS_DELETE);
         }
         return model;
+    }
+
+    @Override
+    public void setDefaultModelValue(Object obj) {
+        try {
+            Date now = new Date();
+            ReflectionsUtil.setFieldValue(obj, "createTime", now);
+            ReflectionsUtil.setFieldValue(obj, "updateTime", now);
+            ReflectionsUtil.setFieldValue(obj, "isDelete", 1);
+        } catch (Exception e) {
+            AppLogger.warn("设置默认属性失败 message:[{}]", e, e.getMessage());
+            throw new ApiException("500", "设置默认属性失败" + e.getMessage());
+        }
     }
 }

@@ -56,4 +56,16 @@ public interface TableCommonService<Model, PrimaryKey> {
      * @throws
      */
     Model bySecondPrimaryKeyException(PrimaryKey id);
+
+    /**
+    *
+    * 方法功能描述:
+    *
+    * @author yanshaowen
+    * @date 2020/8/10 13:11
+    * @param obj
+    * @return
+    * @throws
+    */
+    void setDefaultModelValue(Object obj);
 }
