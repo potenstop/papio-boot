@@ -81,10 +81,17 @@ public class ReflectionsUtil {
     /**
      * 直接设置对象属性值, 无视private/protected修饰符, 不经过setter函数.
      */
+
     public static void setFieldValue(final Object obj, final String fieldName, final Object value) {
+        setFieldValue(obj,fieldName, value, false);
+    }
+    public static void setFieldValue(final Object obj, final String fieldName, final Object value, boolean ignoreNotExist) {
         Field field = getAccessibleField(obj, fieldName);
 
         if (field == null) {
+            if (ignoreNotExist) {
+                return;
+            }
             throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + obj + "]");
         }
 

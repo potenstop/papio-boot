@@ -117,9 +117,9 @@ public abstract class AbstractSimpleTableCommonServiceImpl<Model, PrimaryKey> im
     public void setDefaultModelValue(Object obj) {
         try {
             Date now = new Date();
-            ReflectionsUtil.setFieldValue(obj, "createTime", now);
-            ReflectionsUtil.setFieldValue(obj, "updateTime", now);
-            ReflectionsUtil.setFieldValue(obj, "isDelete", 0);
+            ReflectionsUtil.setFieldValue(obj, "createTime", now, true);
+            ReflectionsUtil.setFieldValue(obj, "updateTime", now, true);
+            ReflectionsUtil.setFieldValue(obj, "isDelete", 0, true);
         } catch (Exception e) {
             AppLogger.warn("设置默认属性失败 message:[{}]", e, e.getMessage());
             throw new ApiException("500", "设置默认属性失败" + e.getMessage());
